@@ -31,7 +31,7 @@ Upload a single image that will be overrided on each upload:
 
 ```ruby
 class User < ApplicationRecord
-  has_attachment :avatar # use singular
+  has_attachment :avatar
 end
 ```
 
@@ -39,7 +39,7 @@ Upload a couple of images that will be added on each upload:
 
 ```ruby
 class User < ApplicationRecord
-  has_attachments :photos # use plural
+  has_attachments :photos
 end
 ```
 
@@ -48,28 +48,22 @@ end
 Expose your Cloudinary credentials on your layout:
 
 ```html
-<%= cloudinary_js_config %>
+<%= cloudinary_js_config %>s
 ```
 
-Into your form add an upload placeholder:
+Into your form the upload field:
 
 ```html
-<div class="attachy">
-  <ul class="attachy__content">
-    <li>
-      <%= image_tag f.object.cover.path %>
-    </li>
-  </ul>
-
-  <div class="attachy__button">
-    <span>Upload</span>
-
-    <%= cl_image_upload_tag :avatar %>
-  </div>
-
-  <%= f.hidden_field :avatar, value: f.object.avatar.to_json %>
-</div>
+<%= f.attachy :avatar %>
 ```
+
+If you want just show your uploaded image, use:
+
+```html
+<%= attachy_link :avatar, @object %>
+```
+
+It will generate a link to your image with the image inside.
 
 ### Assets
 
