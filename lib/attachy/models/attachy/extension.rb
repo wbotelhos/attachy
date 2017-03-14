@@ -62,7 +62,7 @@ module Attachy
           if attachies.present?
             send "#{association}=", attachies
           else
-            send(association).clear
+            send(association).destroy_all
           end
         end
 
