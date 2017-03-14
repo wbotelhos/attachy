@@ -2,7 +2,7 @@
 
 Attachments handler for Rails via Cloudinary
 
-## Desciption
+## Description
 
 Send files from your browser directly to Cloudinary.
 Attachy will generate a `has_one` or `has_many` files (photos) to your model
