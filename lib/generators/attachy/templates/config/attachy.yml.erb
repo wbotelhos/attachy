@@ -1,0 +1,15 @@
+default: &default
+  default:
+    image:
+      format: <%= format %>
+      public_id: <%= public_id %>
+      version: <%= version %>
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default

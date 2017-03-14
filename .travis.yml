@@ -1,0 +1,12 @@
+language: ruby
+
+rvm:
+  - 2.3.3
+
+sudo: false
+
+cache: bundler
+
+before_script: bundle update
+
+script: RAILS_ENV=test bundle exec rspec spec
