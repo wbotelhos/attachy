@@ -1,5 +1,5 @@
 module Attachy
-  ENV_TAG = "attachy_#{Rails.env}"
+  ENV_TAG = "attachy_#{Rails.env}".freeze
   TMP_TAG = :attachy_tmp
 end
 

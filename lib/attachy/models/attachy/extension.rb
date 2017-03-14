@@ -46,15 +46,15 @@ module Attachy
           class_name: Attachy::File,
           dependent: :destroy
 
-          define_method scope do
-            value = send(association)
+        define_method scope do
+          value = send(association)
 
-            return value if options[:multiple]
+          return value if options[:multiple]
 
-            return Attachy::File.default if value.blank?
+          return Attachy::File.default if value.blank?
 
-            value.last
-          end
+          value.last
+        end
 
         define_method "#{scope}=" do |data|
           attachies = attachies_for(data, scope)

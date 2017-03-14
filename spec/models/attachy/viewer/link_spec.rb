@@ -10,7 +10,7 @@ RSpec.describe Attachy::Viewer, '.link' do
   let!(:options)      { { image: { t: default_t, html: default_html } } }
 
   describe 'default options' do
-    before { allow_any_instance_of(Attachy::File).to receive(:url).with({ crop: :none }) { 'http://example.org' } }
+    before { allow_any_instance_of(Attachy::File).to receive(:url).with(crop: :none) { 'http://example.org' } }
 
     it 'adds the link options' do
       expect(viewer).to receive(:image).with(file, t: default_t) { :image }
@@ -52,7 +52,7 @@ RSpec.describe Attachy::Viewer, '.link' do
   end
 
   context 'when :t is not given' do
-    before { allow_any_instance_of(Attachy::File).to receive(:url).with({ crop: :none }) { 'http://example.org' } }
+    before { allow_any_instance_of(Attachy::File).to receive(:url).with(crop: :none) { 'http://example.org' } }
 
     it 'builds the link url with :crop :none' do
       expect(viewer).to receive(:image).with(file, t: default_t) { :image }
@@ -116,7 +116,7 @@ RSpec.describe Attachy::Viewer, '.link' do
     it 'yields the :html and :attachments' do
       viewer.link(t: t, html: html) do |htm, attachments|
         expect(attachments).to eq [file]
-        expect(htm).to         eq({ data: { width: 10 }, target: :blank, class: :attachy__link })
+        expect(htm).to         eq(data: { width: 10 }, target: :blank, class: :attachy__link)
       end
     end
   end

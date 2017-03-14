@@ -50,7 +50,7 @@ RSpec.describe Attachy::Viewer, '.content' do
 
     it 'yields the :html options' do
       subject.content(html: html) do |htm|
-        expect(htm).to eq({ key: :value, class: :attachy__content })
+        expect(htm).to eq(key: :value, class: :attachy__content)
       end
     end
   end

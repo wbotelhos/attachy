@@ -24,7 +24,7 @@ RSpec.describe Dummy, '.attachy' do
   end
 
   context 'with block' do
-    let!(:block) { Proc.new {} }
+    let!(:block) { proc {} }
 
     it 'delegates to view helper with block' do
       expect(template).to receive(:attachy).with(method, object, options, block)

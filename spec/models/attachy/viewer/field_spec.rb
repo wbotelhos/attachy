@@ -44,7 +44,7 @@ RSpec.describe Attachy::Viewer, '.field' do
 
     it 'yields the :html options' do
       subject.field(html: html) do |htm|
-        expect(htm).to eq({ key: :value, class: :attachy })
+        expect(htm).to eq(key: :value, class: :attachy)
       end
     end
   end

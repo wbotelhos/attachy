@@ -17,12 +17,12 @@ RSpec.describe DummyHelper, '.attachy' do
     end
 
     it 'calls field from viewer' do
-      expect(helper.attachy method, object, options, nil).to eq :field
+      expect(helper.attachy(method, object, options, nil)).to eq :field
     end
   end
 
   context 'with block' do
-    let!(:block) { Proc.new { |v| expect(v.field).to eq :field } }
+    let!(:block) { proc { |v| expect(v.field).to eq :field } }
 
     before do
       allow(Attachy::Viewer).to receive(:new).with(method, object, options, helper) { viewer }

@@ -16,6 +16,6 @@ RSpec.describe DummyHelper, '.attachy_content' do
   end
 
   it 'calls content from viewer' do
-    expect(helper.attachy_content method, object, options).to eq :content
+    expect(helper.attachy_content(method, object, options)).to eq :content
   end
 end

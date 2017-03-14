@@ -45,7 +45,7 @@ RSpec.describe Attachy::Viewer, '.file_button' do
 
     it 'yields the :html options' do
       subject.file_button(html: html) do |htm|
-        expect(htm).to eq({ key: :value, class: :attachy__button })
+        expect(htm).to eq(key: :value, class: :attachy__button)
       end
     end
   end

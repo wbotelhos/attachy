@@ -6,6 +6,7 @@ FactoryGirl.define do
     width  800
 
     sequence(:public_id) { |i| "PublicId#{i}" }
-    sequence(:version)   { |i| "#{i}" }
+
+    sequence :version, &:to_s
   end
 end

@@ -16,6 +16,6 @@ RSpec.describe DummyHelper, '.attachy_file_field' do
   end
 
   it 'calls file_field from viewer' do
-    expect(helper.attachy_file_field method, object, options).to eq :file_field
+    expect(helper.attachy_file_field(method, object, options)).to eq :file_field
   end
 end

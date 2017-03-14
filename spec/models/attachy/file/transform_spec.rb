@@ -2,8 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Attachy::File, '.transform' do
   context 'when crop is :none' do
-    it 'returns no transformation' do
-      expect(subject.transform(crop: :none, key: :value)).to eq ({})
+    let!(:file) { build :file }
+
+    it 'removes :crop, :height and :width', :focus do
+      expect(file.transform(crop: :none, key: :value)).to eq(
+        format:    'jpg',
+        key:       :value,
+        public_id: 'PublicId1',
+        secure:    true,
+        sign_url:  true,
+        version:   '1'
+      )
     end
   end
 
@@ -73,5 +82,5 @@ RSpec.describe Attachy::File, '.transform' do
         end
       end
     end
-    end
   end
+end

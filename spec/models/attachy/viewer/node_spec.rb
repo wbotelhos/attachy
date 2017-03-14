@@ -122,7 +122,7 @@ RSpec.describe Attachy::Viewer, '.node' do
     it 'yields the :html and :attachments' do
       viewer.node(html: html) do |htm, attachments|
         expect(attachments).to eq [file]
-        expect(htm).to         eq({ target: :blank, class: :attachy__node })
+        expect(htm).to         eq(target: :blank, class: :attachy__node)
       end
     end
   end
