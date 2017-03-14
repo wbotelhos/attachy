@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.value' do
   let!(:object) { create :user }
 
+  before { allow(Cloudinary::Uploader).to receive(:remove_tag) }
+
   context 'when has one result' do
     context 'as attachament' do
       let!(:method) { :avatar }

@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.file_button' do
   let!(:method)  { :avatar }
   let!(:object)  { create :user }
-  let!(:file)    { create :file, attachable: object }
   let!(:options) { { button: { html: { key: :value } } } }
+
+  let!(:file) do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
+    create :file, attachable: object
+  end
 
   subject { described_class.new method, object, options }
 

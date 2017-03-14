@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, ':photos' do
+  before do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+    allow(Cloudinary::Uploader).to receive(:destroy)
+  end
+
   describe ':photos_files' do
     let!(:user)    { create :user }
     let!(:photo_1) { create :file, scope: :photos, attachable: user }
@@ -72,7 +77,12 @@ RSpec.describe User, ':photos' do
     let!(:user) { create :user }
 
     it 'returns the metadata' do
-      expect(user.photos_metadata).to eq(accept: %i[jpg png], maximum: 10, has: :many, scope: :photos)
+      expect(user.photos_metadata).to eq(
+        accept:   %i[jpg png],
+        maximum:  10,
+        multiple: true,
+        scope:    :photos
+      )
     end
   end
 end

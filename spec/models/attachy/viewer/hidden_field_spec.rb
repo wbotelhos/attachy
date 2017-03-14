@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.hidden_field' do
   let!(:object) { create :user }
   let!(:method) { :avatar }
-  let!(:file)   { create :file, attachable: object, scope: method }
+
+  let!(:file) do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
+    create :file, attachable: object, scope: method
+  end
 
   before { allow(subject).to receive(:value) { :value } }
 

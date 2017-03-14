@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.button_label' do
   let!(:method)  { :avatar }
   let!(:object)  { create :user }
-  let!(:file)    { create :file, attachable: object }
+  let(:file)     { create :file, attachable: object }
   let!(:options) { { button: { html: { key: :value } } } }
+
+  before { allow(Cloudinary::Uploader).to receive(:remove_tag) }
 
   subject { described_class.new method, object, options }
 

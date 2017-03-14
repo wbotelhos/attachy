@@ -3,11 +3,16 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.image' do
   let!(:method)       { :avatar }
   let!(:object)       { create :user }
-  let!(:file)         { create :file, attachable: object }
   let!(:viewer)       { described_class.new method, object, options }
   let!(:default_html) { { alt: :image, height: 50, width: 150 } }
   let!(:default_t)    { { height: 100, width: 200 } }
-  let!(:options)      { { image: { t: default_t, html: default_html } } }
+  let!(:options)      { { t: default_t, html: default_html } }
+
+  let!(:file) do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
+    create :file, attachable: object
+  end
 
   context 'when :html is present' do
     let!(:html_attributes) { { alt: :alt, invalid: :invalid, height: 11, width: 22 } }
@@ -15,7 +20,9 @@ RSpec.describe Attachy::Viewer, '.image' do
     context 'and :t is blank' do
       let!(:t_attributes) { {} }
 
-      before { allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' } }
+      before do
+        allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' }
+      end
 
       it 'adds all attributes on image' do
         el = viewer.image(t: t_attributes, html: html_attributes)
@@ -89,12 +96,13 @@ RSpec.describe Attachy::Viewer, '.image' do
         el = viewer.image(t: t_attributes, html: html_attributes)
 
         expect(el).to have_tag 'img', with: {
-          'data-format'   => file.format,
-          'data-secure'   => true,
-          'data-sign-url' => true,
-          'data-version'  => file.version,
-          height:            1,
-          width:             2
+          'data-format'    => file.format,
+          'data-public-id' => file.public_id,
+          'data-secure'    => true,
+          'data-sign-url'  => true,
+          'data-version'   => file.version,
+          height:          1,
+          width:           2
         }
       end
     end
@@ -108,16 +116,18 @@ RSpec.describe Attachy::Viewer, '.image' do
         el = viewer.image
 
         expect(el).to have_tag 'img', with: {
-          'data-crop'     => 'fill',
-          'data-format'   => file.format,
-          'data-height'   => 100,
-          'data-secure'   => true,
-          'data-sign-url' => true,
-          'data-version'  => file.version,
-          'data-width'    => 200,
-          alt:               'image',
-          height:            50,
-          width:             150
+          'alt'            => 'Example',
+          'data-crop'      => 'fill',
+          'data-format'    => file.format,
+          'data-height'    => 100,
+          'data-public-id' => file.public_id,
+          'data-secure'    => true,
+          'data-sign-url'  => true,
+          'data-version'   => file.version,
+          'data-width'     => 200,
+          'height'         => 100,
+          'src'            => 'http://example.org',
+          'width'          => 200
         }
       end
     end
@@ -131,28 +141,30 @@ RSpec.describe Attachy::Viewer, '.image' do
         el = viewer.image(t: t_attributes)
 
         expect(el).to have_tag 'img', with: {
-          'data-crop'     => 'fill',
-          'data-format'   => file.format,
-          'data-height'   => 1,
-          'data-secure'   => true,
-          'data-sign-url' => true,
-          'data-version'  => file.version,
-          'data-width'    => 2,
-          alt:               'image',
-          height:            50,
-          width:             150
+          'alt'            => 'Example',
+          'data-crop'      => 'fill',
+          'data-format'    => file.format,
+          'data-height'    => 1,
+          'data-public-id' => file.public_id,
+          'data-secure'    => true,
+          'data-sign-url'  => true,
+          'data-version'   => file.version,
+          'data-width'     => 2,
+          'height'         => 1,
+          'src'            => 'http://example.org',
+          'width'          => 2
         }
       end
     end
   end
 
   context 'when given a :file' do
-    let!(:file) { create :file, format: :png, version: 7 }
+    let!(:file) { build :file, format: :png, version: 7 }
 
     it 'is used' do
       expect(file).to receive(:url).with(default_t) { 'http://example.org' }
 
-      viewer.image(file)
+      viewer.image file
     end
   end
 end

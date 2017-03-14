@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.remove_button' do
   let!(:object) { create :user }
   let!(:method) { :avatar }
-  let!(:file)   { create :file, attachable: object, scope: method }
+
+  let!(:file) do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
+    create :file, attachable: object, scope: method
+  end
 
   subject { described_class.new method, object }
 
@@ -12,7 +17,7 @@ RSpec.describe Attachy::Viewer, '.remove_button' do
       el = subject.remove_button
 
       expect(el).to have_tag :span, with: { class: 'attachy__remove' } do
-        with_text 'x'
+        with_text '×'
       end
     end
   end

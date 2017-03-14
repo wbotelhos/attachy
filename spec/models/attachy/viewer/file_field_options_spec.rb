@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.file_field_options' do
   let!(:object) { create :user }
   let!(:method) { :avatar }
-  let!(:file)   { create :file, attachable: object, scope: method }
+
+  let!(:file) do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
+    create :file, attachable: object, scope: method
+  end
 
   subject { described_class.new method, object }
 

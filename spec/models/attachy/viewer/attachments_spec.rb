@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.attachments' do
   let!(:object) { create :user }
 
+  before { allow(Cloudinary::Uploader).to receive(:remove_tag) }
+
   subject { described_class.new method, object }
 
   context 'with one file' do

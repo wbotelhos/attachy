@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Attachy::File, '#default' do
   before do
-    allow(Rails.application).to receive(:config_for).with(:attachy) do
+    allow(::Rails).to receive_message_chain(:application, :config_for).with(:attachy) do
       {
         'default' => {
           'image' => {

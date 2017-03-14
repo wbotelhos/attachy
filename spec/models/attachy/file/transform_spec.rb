@@ -4,14 +4,14 @@ RSpec.describe Attachy::File, '.transform' do
   context 'when crop is :none' do
     let!(:file) { build :file }
 
-    it 'removes :crop, :height and :width', :focus do
+    it 'removes :crop, :height and :width' do
       expect(file.transform(crop: :none, key: :value)).to eq(
-        format:    'jpg',
+        format:    file.format,
         key:       :value,
-        public_id: 'PublicId1',
+        public_id: file.public_id,
         secure:    true,
         sign_url:  true,
-        version:   '1'
+        version:   file.version
       )
     end
   end

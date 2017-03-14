@@ -3,10 +3,12 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.content_options' do
   let!(:object)  { create :user }
   let!(:method)  { :avatar }
-  let!(:file)    { create :file, attachable: object, scope: method }
-  let!(:options) { { image: { t: { height: 600, width: 800 } } } }
+  let(:file)     { create :file, attachable: object, scope: method }
+  let!(:options) { { t: { height: 600, width: 800 } } }
 
   before do
+    allow(Cloudinary::Uploader).to receive(:remove_tag)
+
     allow(subject).to receive(:metadata) { { crop: :crop, multiple: :multiple } }
   end
 
