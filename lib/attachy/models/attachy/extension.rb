@@ -57,6 +57,8 @@ module Attachy
         end
 
         define_method "#{scope}=" do |data|
+          return if data.blank?
+
           attachies = attachies_for(data, scope)
 
           if attachies.present?
