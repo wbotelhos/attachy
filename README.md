@@ -1,6 +1,6 @@
 # Attachy
 
-Attachments handler for Rails via Cloudinary
+Attachments handler for Rails via http://cloudinary.com
 
 ## Description
 
@@ -48,14 +48,42 @@ end
 Expose your Cloudinary credentials on your layout:
 
 ```html
-<%= cloudinary_js_config %>s
+<%= cloudinary_js_config %>
 ```
 
-Into your form the upload field:
+Into your form, add the upload field:
 
 ```html
 <%= f.attachy :avatar %>
 ```
+
+### Assets
+
+Includes the `attachy.js` on your js manifest:
+
+```js
+//= require attachy
+```
+
+Includes the `attachy.sass` on your css manifest:
+
+```js
+/*
+ *= require attachy
+ */
+```
+
+### <a name="default-image"></a> Configurations
+
+On your `attachy.yml` you can configure a default image to show when model has no file attached:
+
+```js
+format: jpg
+public_id: default
+version: 42
+```
+
+## Showing
 
 If you want just show your uploaded image, use:
 
@@ -65,30 +93,22 @@ If you want just show your uploaded image, use:
 
 It will generate a link to your image with the image inside.
 
-### Assets
+## Transformation
 
-Includes the `attachy.js` on your js manifest:
+You can manipulate the image using the `t` attribute:
 
-```js
-//= require vendor/attachy
+```
+<%= f.attachy :avatar, t: { width: 160, height: 160, crop: :fill } %>
 ```
 
-Includes the `attachy.sass` on your css manifest:
+To know more about transformations, check the [Cloudinary Doc](http://cloudinary.com/documentation/image_transformations).
 
-```js
-/*
- *= require vendor/attachy
- */
+## HTML
+
+For HTML attributes, just use `html`:
+
 ```
-
-### <a name="default-image"></a> Configurations
-
-On your `attachy.yml` configure a default image to show when model has no one:
-
-```js
-format: jpg
-public_id: default
-version: 42
+<%= f.attachy :avatar, html: { width: 160, height: 160, alt: 'Image' } %>
 ```
 
 ## Test
