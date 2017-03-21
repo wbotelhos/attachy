@@ -83,32 +83,97 @@ public_id: default
 version: 42
 ```
 
-## Showing
-
-If you want just show your uploaded image, use:
-
-```html
-<%= attachy_link :avatar, @object %>
-```
-
-It will generate a link to your image with the image inside.
-
-## Transformation
-
-You can manipulate the image using the `t` attribute:
-
-```
-<%= f.attachy :avatar, t: { width: 160, height: 160, crop: :fill } %>
-```
+## Transformations
 
 To know more about transformations, check the [Cloudinary Doc](http://cloudinary.com/documentation/image_transformations).
 
-## HTML
+## Helpers
 
-For HTML attributes, just use `html`:
+### Attachy
 
 ```
-<%= f.attachy :avatar, html: { width: 160, height: 160, alt: 'Image' } %>
+<%= f.attachy :avatar,
+  t:      { width: 160, height: 160, crop: :fill },
+  tl:     { width: 800, height: 600, crop: :scale },
+  button: { html: { text: 'Upload' } }
+%>
+```
+
++ `t`: image transformations;
++ `tl`: linked image transformations;
++ `button.html`: button html attributes.
+
+```
+<div class="attachy">
+  <ul class="attachy__content">
+    <li class="attachy__node">
+      <a class="attachy__link" href="">
+        <img src="">
+      </a>
+
+      <span class="attachy__remove">×</span>
+    </li>
+  </ul>
+
+  <div class="attachy__button">
+    <span>...</span>
+
+    <input type="file" class="attachy__fileupload">
+
+    <input value="[]" type="hidden">
+  </div>
+</div>
+```
+
++ `attachy`: wrapper;
++ `attachy__content`: the file content;
++ `attachy__node`: each file of the content;
++ `attachy__link`: the link of some file;
++ `img`: the uploaded file;
++ `attachy__remove`: button to remove the image;
++ `attachy__button`: pseudo button to access the upload file button;
++ `span`: the label of the button;
++ `attachy__fileupload`: the upload file field;
++ `hidden`: the field that keeps hidden the files metadata as JSON.
+
+## Link
+
+It draws the link with the image inside:
+
+```
+<%= attachy_link :avatar, @object
+  t:    { width: 160, height: 160, crop: :fill },
+  tl:   { width: 800, height: 600, crop: :scale },
+  html: { class: :added_custom }
+%>
+```
+
++ `t`: image transformations;
++ `tl`: linked image transformations;
++ `html`: link html attributes.
+
+```
+<a class="attachy__link" href="">
+  <img src="">
+</a>
+```
+
+### Image
+
+It draws the link with the image inside:
+
+```
+<%= attachy_image :avatar, @object
+  t:    { width: 160, height: 160, crop: :fill },
+  html: { alt: :me }
+%>
+```
+
++ `t`: image transformations;
++ `html`: link html attributes.
+
+```
+<img src="https://res.cloudinary.com/account/image/upload/secret/version/hash.format">
 ```
 
 ## Test
