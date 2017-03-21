@@ -17,8 +17,8 @@ module Attachy
       { text: '...' }
     end
 
-    def button_label(html: button_label_options)
-      html = htm(:button).merge(html)
+    def button_label(html: htm(:button))
+      html = button_label_options.merge(html)
 
       @view.content_tag :span, html.delete(:text), html
     end
