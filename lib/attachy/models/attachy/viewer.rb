@@ -103,7 +103,7 @@ module Attachy
     end
 
     def link(file = criteria, t: transform, tl: { crop: :none }, html: {})
-      html = html.reverse_merge(link_options.merge(data: tl))
+      html = link_options.merge(data: tl).merge(html)
 
       return yield(html, attachments) if block_given?
 
