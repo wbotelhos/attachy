@@ -155,16 +155,16 @@ module Attachy
       attachments.size == 1 && attachments.last.public_id == Attachy::File.default.public_id
     end
 
-    def htm(resource_type = :image)
-      @options.dig(resource_type, :html) || {}
+    def htm(path = [])
+      @options.dig(*[path, :html].flatten) || {}
     end
 
     def metadata
       @metadata ||= @object.send("#{@method}_metadata")
     end
 
-    def transform(path = [:t])
-      @options.dig(*path) || {}
+    def transform(path = [])
+      @options.dig(*[path, :t].flatten) || {}
     end
   end
 end
