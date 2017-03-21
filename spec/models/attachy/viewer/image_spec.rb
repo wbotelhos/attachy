@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Attachy::Viewer, '.image' do
   let!(:method)       { :avatar }
   let!(:object)       { create :user }
-  let!(:viewer)       { described_class.new method, object, options }
   let!(:default_html) { { alt: :image, height: 50, width: 150 } }
   let!(:default_t)    { { height: 100, width: 200 } }
   let!(:options)      { { t: default_t, html: default_html } }
@@ -13,6 +12,8 @@ RSpec.describe Attachy::Viewer, '.image' do
 
     create :file, attachable: object
   end
+
+  subject { described_class.new method, object, options }
 
   context 'when :html is present' do
     let!(:html_attributes) { { alt: :alt, invalid: :invalid, height: 11, width: 22 } }
@@ -25,7 +26,7 @@ RSpec.describe Attachy::Viewer, '.image' do
       end
 
       it 'adds all attributes on image' do
-        el = viewer.image(t: t_attributes, html: html_attributes)
+        el = subject.image(t: t_attributes, html: html_attributes)
 
         expect(el).to have_tag 'img', with: html_attributes
       end
@@ -37,7 +38,7 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' } }
 
       it 'gives priority to :html' do
-        el = viewer.image(t: t_attributes, html: html_attributes)
+        el = subject.image(t: t_attributes, html: html_attributes)
 
         expect(el).to have_tag 'img', with: html_attributes
       end
@@ -47,7 +48,7 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(default_t) { 'http://example.org' } }
 
       it 'uses the :html attributes and transform with default :t' do
-        el = viewer.image(html: html_attributes)
+        el = subject.image(html: html_attributes)
 
         expect(el).to have_tag 'img', with: {
           'data-crop'     => 'fill',
@@ -76,7 +77,7 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' } }
 
       it 'adds only the default transformation with file attributes' do
-        el = viewer.image(t: t_attributes, html: html_attributes)
+        el = subject.image(t: t_attributes, html: html_attributes)
 
         expect(el).to have_tag 'img', with: {
           'data-format'   => file.format,
@@ -93,7 +94,7 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' } }
 
       it 'adds the :t attributes on html attributes with default data' do
-        el = viewer.image(t: t_attributes, html: html_attributes)
+        el = subject.image(t: t_attributes, html: html_attributes)
 
         expect(el).to have_tag 'img', with: {
           'data-format'    => file.format,
@@ -113,10 +114,10 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(default_t) { 'http://example.org' } }
 
       it 'uses the default :html with default :t' do
-        el = viewer.image
+        el = subject.image
 
         expect(el).to have_tag 'img', with: {
-          'alt'            => 'Example',
+          'alt'            => 'image',
           'data-crop'      => 'fill',
           'data-format'    => file.format,
           'data-height'    => 100,
@@ -125,9 +126,9 @@ RSpec.describe Attachy::Viewer, '.image' do
           'data-sign-url'  => true,
           'data-version'   => file.version,
           'data-width'     => 200,
-          'height'         => 100,
+          'height'         => 50,
           'src'            => 'http://example.org',
-          'width'          => 200
+          'width'          => 150
         }
       end
     end
@@ -138,10 +139,10 @@ RSpec.describe Attachy::Viewer, '.image' do
       before { allow_any_instance_of(Attachy::File).to receive(:url).with(t_attributes) { 'http://example.org' } }
 
       it 'uses the default :html with given :t overriding the default :t' do
-        el = viewer.image(t: t_attributes)
+        el = subject.image(t: t_attributes)
 
         expect(el).to have_tag 'img', with: {
-          'alt'            => 'Example',
+          'alt'            => 'image',
           'data-crop'      => 'fill',
           'data-format'    => file.format,
           'data-height'    => 1,
@@ -150,9 +151,9 @@ RSpec.describe Attachy::Viewer, '.image' do
           'data-sign-url'  => true,
           'data-version'   => file.version,
           'data-width'     => 2,
-          'height'         => 1,
+          'height'         => 50,
           'src'            => 'http://example.org',
-          'width'          => 2
+          'width'          => 150
         }
       end
     end
@@ -164,7 +165,7 @@ RSpec.describe Attachy::Viewer, '.image' do
     it 'is used' do
       expect(file).to receive(:url).with(default_t) { 'http://example.org' }
 
-      viewer.image file
+      subject.image file
     end
   end
 end
