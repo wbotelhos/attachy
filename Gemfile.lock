@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    attachy (0.1.1)
+    attachy (0.1.2)
       cloudinary (~> 1.5)
       rails (~> 5.0)
 
@@ -236,4 +236,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
