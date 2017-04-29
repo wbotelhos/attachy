@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.file_button' do
+  subject { described_class.new method, object, options }
+
   let!(:method)  { :avatar }
   let!(:object)  { create :user }
   let!(:options) { { button: { html: { key: :value } } } }
@@ -10,8 +14,6 @@ RSpec.describe Attachy::Viewer, '.file_button' do
 
     create :file, attachable: object
   end
-
-  subject { described_class.new method, object, options }
 
   before do
     allow(subject).to receive(:button_label) { '1' }

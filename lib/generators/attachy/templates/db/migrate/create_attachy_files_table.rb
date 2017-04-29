@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAttachyFilesTable < ActiveRecord::Migration[5.0]
   def change
     create_table :attachy_files do |t|
@@ -14,6 +16,6 @@ class CreateAttachyFilesTable < ActiveRecord::Migration[5.0]
       t.timestamps null: false
     end
 
-    add_index :attachy_files, [:attachable_type, :attachable_id, :scope], name: :index_attachy_files_on_attachable_and_scope
+    add_index :attachy_files, %i[attachable_type attachable_id scope], name: :index_attachy_files_on_attachable_and_scope
   end
 end

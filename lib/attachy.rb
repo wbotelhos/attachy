@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Attachy
-  ENV_TAG = "attachy_#{Rails.env}".freeze
+  ENV_TAG = "attachy_#{Rails.env}"
   TMP_TAG = :attachy_tmp
 end
 

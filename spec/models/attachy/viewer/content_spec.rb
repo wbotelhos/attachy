@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.content' do
+  subject { described_class.new method, object, options }
+
   let!(:method)  { :avatar }
   let!(:object)  { create :user }
   let!(:options) { { button: { html: { key: :value } } } }
@@ -21,8 +25,6 @@ RSpec.describe Attachy::Viewer, '.content' do
 
     allow(subject).to receive(:content_options) { { class: :attachy__content } }
   end
-
-  subject { described_class.new method, object, options }
 
   describe 'default options' do
     it 'uses generic button options' do

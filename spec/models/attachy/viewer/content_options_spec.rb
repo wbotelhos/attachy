@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.content_options' do
+  subject { described_class.new method, object, options }
+
   let!(:object)  { create :user }
   let!(:method)  { :avatar }
   let(:file)     { create :file, attachable: object, scope: method }
@@ -11,8 +15,6 @@ RSpec.describe Attachy::Viewer, '.content_options' do
 
     allow(subject).to receive(:metadata) { { crop: :crop, multiple: :multiple } }
   end
-
-  subject { described_class.new method, object, options }
 
   it 'returns the default field options' do
     expect(subject.content_options).to eq(

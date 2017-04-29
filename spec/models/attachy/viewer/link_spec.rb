@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.link' do
+  subject { described_class.new method, object, options }
+
   let!(:method)       { :avatar }
   let!(:object)       { create :user }
   let!(:default_html) { { alt: :image, height: 50, width: 150 } }
@@ -12,8 +16,6 @@ RSpec.describe Attachy::Viewer, '.link' do
 
     create :file, attachable: object
   end
-
-  subject { described_class.new method, object, options }
 
   describe 'default options' do
     before do

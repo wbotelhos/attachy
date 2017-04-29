@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ::ActiveRecord::Base
   has_attachment :avatar, accept: %i[jpg png]
 

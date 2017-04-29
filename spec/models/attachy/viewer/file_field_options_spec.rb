@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.file_field_options' do
+  subject { described_class.new method, object }
+
   let!(:object) { create :user }
   let!(:method) { :avatar }
 
@@ -9,8 +13,6 @@ RSpec.describe Attachy::Viewer, '.file_field_options' do
 
     create :file, attachable: object, scope: method
   end
-
-  subject { described_class.new method, object }
 
   context 'when :accept has invalid mime type' do
     context 'with one type' do
@@ -27,7 +29,7 @@ RSpec.describe Attachy::Viewer, '.file_field_options' do
 
     context 'with more than one type' do
       before do
-        allow(subject).to receive(:metadata) { { accept: [:abc, :png] } }
+        allow(subject).to receive(:metadata) { { accept: %i[abc png] } }
       end
 
       it 'is added as attribute only the valid one' do
@@ -53,7 +55,7 @@ RSpec.describe Attachy::Viewer, '.file_field_options' do
 
     context 'with more than one type' do
       before do
-        allow(subject).to receive(:metadata) { { accept: [:jpg, :png] } }
+        allow(subject).to receive(:metadata) { { accept: %i[jpg png] } }
       end
 
       it 'is added as attribute' do

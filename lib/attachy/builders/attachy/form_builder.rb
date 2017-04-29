@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Attachy
   module FormBuilder
     def attachy(method, options = {}, &block)

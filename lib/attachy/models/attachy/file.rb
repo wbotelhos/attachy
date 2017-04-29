@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Attachy
   class File < ::ActiveRecord::Base
     self.table_name = 'attachy_files'

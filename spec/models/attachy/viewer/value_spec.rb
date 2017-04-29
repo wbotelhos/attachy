@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.value' do
@@ -7,10 +9,10 @@ RSpec.describe Attachy::Viewer, '.value' do
 
   context 'when has one result' do
     context 'as attachament' do
+      subject { described_class.new method, object }
+
       let!(:method) { :avatar }
       let!(:file)   { create :file, attachable: object, scope: method }
-
-      subject { described_class.new method, object }
 
       context 'and it is not default' do
         let!(:default) { Attachy::File.new public_id: 0 }
@@ -38,10 +40,10 @@ RSpec.describe Attachy::Viewer, '.value' do
     end
 
     context 'as attachaments' do
+      subject { described_class.new method, object }
+
       let!(:method) { :photos }
       let!(:file)   { create :file, attachable: object, scope: method }
-
-      subject { described_class.new method, object }
 
       context 'and it is not default' do
         let!(:default) { Attachy::File.new public_id: 0 }
@@ -70,11 +72,11 @@ RSpec.describe Attachy::Viewer, '.value' do
   end
 
   context 'when has more than one result' do
+    subject { described_class.new method, object }
+
     let!(:method) { :photos }
     let!(:file_1) { create :file, attachable: object, scope: :photos }
     let!(:file_2) { create :file, attachable: object, scope: :photos }
-
-    subject { described_class.new method, object }
 
     it 'is represented as json' do
       expect(subject.value).to eq [file_1, file_2].to_json

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'attachy/builders/attachy/form_builder'
 require 'attachy/helpers/attachy/view_helper'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, ':avatar' do
@@ -79,7 +81,7 @@ RSpec.describe User, ':avatar' do
         it 'does not creates a new one' do
           user.avatar = json
 
-          expect { user.avatar_files }.to_not change(Attachy::File, :count)
+          expect { user.avatar_files }.not_to change(Attachy::File, :count)
         end
 
         it 'is referenced' do
@@ -95,7 +97,7 @@ RSpec.describe User, ':avatar' do
         it 'does not creates a new one' do
           user.avatar = json
 
-          expect { user.avatar_files }.to_not change(Attachy::File, :count)
+          expect { user.avatar_files }.not_to change(Attachy::File, :count)
         end
 
         it 'is referenced' do
@@ -113,8 +115,7 @@ RSpec.describe User, ':avatar' do
           height:    600,
           public_id: :public_id,
           scope:     :avatar,
-          width:     800
-        )
+          width:     800)
       end
 
       context 'as a json' do

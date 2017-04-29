@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Attachy
   module ViewHelper
     def attachy(method, object, options, block)

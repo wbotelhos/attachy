@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.hidden_field' do
+  subject { described_class.new method, object }
+
   let!(:object) { create :user }
   let!(:method) { :avatar }
 
@@ -11,8 +15,6 @@ RSpec.describe Attachy::Viewer, '.hidden_field' do
   end
 
   before { allow(subject).to receive(:value) { :value } }
-
-  subject { described_class.new method, object }
 
   it 'returns the hidden field with attachments value' do
     el = subject.hidden_field

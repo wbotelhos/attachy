@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.remove_button' do
+  subject { described_class.new method, object }
+
   let!(:object) { create :user }
   let!(:method) { :avatar }
 
@@ -9,8 +13,6 @@ RSpec.describe Attachy::Viewer, '.remove_button' do
 
     create :file, attachable: object, scope: method
   end
-
-  subject { described_class.new method, object }
 
   context 'when give no html options' do
     it 'returns just the default options' do
