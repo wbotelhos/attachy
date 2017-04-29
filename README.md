@@ -1,5 +1,8 @@
 # Attachy
 
+[![Build Status](https://travis-ci.org/wbotelhos/attachy.svg)](https://travis-ci.org/wbotelhos/attachy)
+[![Gem Version](https://badge.fury.io/rb/attachy.svg)](https://badge.fury.io/rb/attachy)
+
 Attachments handler for Rails via http://cloudinary.com
 
 ## Description
