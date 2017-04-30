@@ -1,3 +1,8 @@
+# 0.2.0
+
+- Bump Rails to 5.x;
+- Bump Ruby to 2.4.1.
+
 # 0.1.2
 
 - Added `ruby-version`;
