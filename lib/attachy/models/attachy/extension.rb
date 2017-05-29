@@ -45,7 +45,7 @@ module Attachy
         has_many association.to_sym,
           -> { where scope: scope },
           as: :attachable,
-          class_name: Attachy::File,
+          class_name: 'Attachy::File',
           dependent: :destroy
 
         define_method scope do
