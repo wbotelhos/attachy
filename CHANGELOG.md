@@ -1,3 +1,7 @@
+# 0.3.0
+
+- Fix deprecate warning for `class_name` on Rails 5.1.
+
 # 0.2.0
 
 - Bump Rails to 5.x;
