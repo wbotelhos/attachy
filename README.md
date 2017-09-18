@@ -169,7 +169,7 @@ It draws the link with the image inside:
 
 ### Image
 
-It draws the link with the image inside:
+It draws the image:
 
 ```
 <%= attachy_image :avatar, @object
