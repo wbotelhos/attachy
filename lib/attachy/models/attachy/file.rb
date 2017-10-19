@@ -41,7 +41,11 @@ module Attachy
     end
 
     def self.default
-      new config['default']['image']
+      image = config.dig('default', 'image')
+
+      return if image.nil?
+
+      new image
     end
 
     private
