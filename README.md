@@ -86,10 +86,12 @@ Includes the `attachy.sass` on your css manifest:
 
 On your `attachy.yml` you can configure a default image to show when model has no file attached:
 
-```js
-format: jpg
-public_id: default
-version: 42
+```yml
+default:
+  image:
+    format: jpg
+    public_id: default
+    version: 42
 ```
 
 ## Transformations
@@ -100,7 +102,7 @@ To know more about transformations, check the [Cloudinary Doc](http://cloudinary
 
 ### Attachy
 
-```
+```html
 <%= f.attachy :avatar,
   t:      { width: 160, height: 160, crop: :fill },
   tl:     { width: 800, height: 600, crop: :scale },
@@ -112,7 +114,7 @@ To know more about transformations, check the [Cloudinary Doc](http://cloudinary
 + `tl`: linked image transformations;
 + `button.html`: button html attributes.
 
-```
+```html
 <div class="attachy">
   <ul class="attachy__content">
     <li class="attachy__node">
@@ -149,7 +151,7 @@ To know more about transformations, check the [Cloudinary Doc](http://cloudinary
 
 It draws the link with the image inside:
 
-```
+```html
 <%= attachy_link :avatar, @object
   t:    { width: 160, height: 160, crop: :fill },
   tl:   { width: 800, height: 600, crop: :scale },
@@ -161,7 +163,7 @@ It draws the link with the image inside:
 + `tl`: linked image transformations;
 + `html`: link html attributes.
 
-```
+```html
 <a class="attachy__link" href="">
   <img src="">
 </a>
@@ -171,7 +173,7 @@ It draws the link with the image inside:
 
 It draws the image:
 
-```
+```html
 <%= attachy_image :avatar, @object
   t:    { width: 160, height: 160, crop: :fill },
   html: { alt: :me }
@@ -181,7 +183,7 @@ It draws the image:
 + `t`: image transformations;
 + `html`: link html attributes.
 
-```
+```html
 <img src="https://res.cloudinary.com/account/image/upload/secret/version/hash.format">
 ```
 
