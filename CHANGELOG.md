@@ -1,3 +1,7 @@
+# 0.4.0
+
+- Default image is returned only if you declare it on `attacy.yml`.
+
 # 0.3.0
 
 - Fix deprecate warning for `class_name` on Rails 5.1.
