@@ -3,6 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Attachy::File, '#default' do
+  context 'when config is missing' do
+    before do
+      allow(::Rails).to receive_message_chain(:application, :config_for) { nil }
+    end
+
+    specify { expect(described_class.default).to eq nil }
+  end
+
   context 'when default image is present' do
     before do
       allow(::Rails).to receive_message_chain(:application, :config_for).with(:attachy) do

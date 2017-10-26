@@ -37,10 +37,12 @@ module Attachy
     end
 
     def self.config
-      ::Rails.application.config_for :attachy
+      ::Rails.application&.config_for :attachy
     end
 
     def self.default
+      return if config.nil?
+
       image = config.dig('default', 'image')
 
       return if image.nil?

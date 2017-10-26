@@ -12,7 +12,7 @@ module Attachy
     end
 
     def attachments
-      [criteria].flatten
+      [criteria].flatten.compact
     end
 
     def button_label_options
@@ -93,6 +93,8 @@ module Attachy
     end
 
     def image(file = criteria, t: transform, html: htm)
+      return if file.nil?
+
       url         = file.url(t)
       html        = html.reverse_merge(height: t[:height], width: t[:width])
       html[:data] = file.transform(t)

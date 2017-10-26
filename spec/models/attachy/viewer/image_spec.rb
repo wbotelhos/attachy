@@ -161,7 +161,13 @@ RSpec.describe Attachy::Viewer, '.image' do
     end
   end
 
-  context 'when given a :file' do
+  context 'when :file is nil' do
+    let!(:file) { nil }
+
+    specify { expect(subject.image(file)).to eq nil }
+  end
+
+  context 'when :file is present' do
     let!(:file) { build :file, format: :png, version: 7 }
 
     it 'is used' do

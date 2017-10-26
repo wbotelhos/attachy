@@ -3,28 +3,50 @@
 require 'rails_helper'
 
 RSpec.describe Attachy::Viewer, '.attachments' do
-  subject { described_class.new method, object }
-
   let!(:object) { create :user }
 
   before { allow(Cloudinary::Uploader).to receive(:remove_tag) }
 
-  context 'with one file' do
-    let!(:method) { :avatar }
-    let!(:file)   { create :file, attachable: object, scope: method }
+  context 'with no files' do
+    subject { described_class.new :avatar, object }
 
-    it 'returns an array' do
-      expect(subject.attachments).to eq [file]
+    specify { expect(subject.attachments).to eq [] }
+  end
+
+  context 'when is has one' do
+    subject { described_class.new method, object }
+
+    let!(:method) { :avatar }
+
+    context 'and has no files' do
+      specify { expect(subject.attachments).to eq [] }
+    end
+
+    context 'and has file' do
+      let!(:file) { create :file, attachable: object, scope: method }
+
+      it 'returns an array with this file' do
+        expect(subject.attachments).to eq [file]
+      end
     end
   end
 
-  context 'with more than one files' do
-    let!(:method) { :photos }
-    let!(:file_1) { create :file, attachable: object, scope: method }
-    let!(:file_2) { create :file, attachable: object, scope: method }
+  context 'when is has many' do
+    subject { described_class.new method, object }
 
-    it 'returns an array' do
-      expect(subject.attachments).to eq [file_1, file_2]
+    let!(:method) { :photos }
+
+    context 'and has no files' do
+      specify { expect(subject.attachments).to eq [] }
+    end
+
+    context 'and has files' do
+      let!(:file_1) { create :file, attachable: object, scope: method }
+      let!(:file_2) { create :file, attachable: object, scope: method }
+
+      it 'returns an array with this files' do
+        expect(subject.attachments).to eq [file_1, file_2]
+      end
     end
   end
 end

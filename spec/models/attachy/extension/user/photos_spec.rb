@@ -50,12 +50,10 @@ RSpec.describe User, ':photos' do
     let!(:user) { create :user }
 
     context 'with no file' do
-      it 'returns empty' do
-        expect(user.photos).to eq []
-      end
+      specify { expect(user.photos).to eq [] }
     end
 
-    context 'with file' do
+    context 'with files' do
       let!(:photo_1) { create :file, scope: :photos, attachable: user }
       let!(:photo_2) { create :file, scope: :photos, attachable: user }
 

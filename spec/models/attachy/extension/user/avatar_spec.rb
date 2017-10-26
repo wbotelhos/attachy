@@ -50,13 +50,7 @@ RSpec.describe User, ':avatar' do
     let!(:user) { create :user }
 
     context 'with no file' do
-      before do
-        allow(Attachy::File).to receive(:default) { :default }
-      end
-
-      it 'returns a default file' do
-        expect(user.avatar).to eq :default
-      end
+      specify { expect(user.avatar).to eq nil }
     end
 
     context 'with file' do
