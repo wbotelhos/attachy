@@ -146,7 +146,7 @@ module Attachy
     end
 
     def value
-      [(default? ? [] : criteria)].flatten.to_json
+      default? ? '[]' : attachments.to_json
     end
 
     private
@@ -156,7 +156,7 @@ module Attachy
     end
 
     def default?
-      attachments.size == 1 && attachments.last.public_id == Attachy::File.default.public_id
+      attachments.size == 1 && attachments.last.public_id == Attachy::File.default&.public_id
     end
 
     def htm(path = [])
