@@ -19,8 +19,8 @@ Add the following code on your `Gemfile` and run `bundle install`:
 gem 'attachy'
 ```
 
-So, extracts the necessary files including a migrate that create a table used
-to keep your file metadata. You can choose a [Default Image](#default-image) via params 'version', `public_id` and 'format'.
+So, extracts the necessary files including a migrate that create a table used to keep your file metadata.
+You can choose a [Default Image](#default-image) via params `version`, `public_id` and `format`.
 
 ```bash
 rails g attachy:install
