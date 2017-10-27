@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails'     , '~> 5'
 
   spec.add_development_dependency 'database_cleaner'
-  spec.add_development_dependency 'factory_girl_rails'
+  spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'rspec-html-matchers'
   spec.add_development_dependency 'rspec-rails'
