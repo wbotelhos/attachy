@@ -21,4 +21,14 @@ RSpec.describe Attachy::Viewer, '.hidden_field' do
 
     expect(el).to have_tag :input, with: { name: 'user[avatar]', type: 'hidden', value: 'value' }
   end
+
+  context 'when entity has a composed name' do
+    let!(:object) { create :admin_user }
+
+    it 'return the hidden field with an underscored name' do
+      el = subject.hidden_field
+
+      expect(el).to have_tag :input, with: { name: 'admin_user[avatar]', type: 'hidden', value: 'value' }
+    end
+  end
 end

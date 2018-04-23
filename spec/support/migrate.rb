@@ -4,3 +4,4 @@ require File.expand_path('../../lib/generators/attachy/templates/db/migrate/crea
 
 CreateAttachyFilesTable.new.change
 CreateUsersTable.new.change
+CreateAdminUsersTable.new.change

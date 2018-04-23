@@ -89,7 +89,7 @@ module Attachy
     end
 
     def hidden_field
-      @view.hidden_field @object.class.name.downcase, @method, value: value, id: nil
+      @view.hidden_field @object.class.name.underscore, @method, value: value, id: nil
     end
 
     def image(file = criteria, t: transform, html: htm)
